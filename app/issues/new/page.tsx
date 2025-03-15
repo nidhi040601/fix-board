@@ -10,6 +10,7 @@ import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { z } from "zod";
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -41,11 +42,8 @@ const NewIssuePage = () => {
         <TextField.Root placeholder="Title" {...register("title")}>
           <TextField.Slot />
         </TextField.Root>
-        {formState.errors.title && (
-          <Text color="red" as="p">
-            {formState.errors.title.message}
-          </Text>
-        )}
+        <ErrorMessage>{formState.errors.title?.message}</ErrorMessage>
+
         <Controller
           name="description"
           control={control}
@@ -53,11 +51,7 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description.." {...field} />
           )}
         />
-        {formState.errors.description && (
-          <Text color="red" as="p">
-            {formState.errors.description.message}
-          </Text>
-        )}
+        <ErrorMessage>{formState.errors.description?.message}</ErrorMessage>
         <Button>Submit New Issue</Button>
       </form>
     </div>
