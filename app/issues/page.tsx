@@ -1,10 +1,11 @@
 "use client";
 
-import { Button, Flex, Heading, Table, Text } from "@radix-ui/themes";
+import { Badge, Button, Flex, Heading, Table, Text } from "@radix-ui/themes";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "../components/ErrorMessage";
+import { issueStatusColor } from "../lib/issueStatusUtils";
 
 interface Issue {
   id: string;
@@ -60,17 +61,21 @@ const IssuesPage = () => {
             {issues.map(({ id, title, status, createdAt }) => (
               <Table.Row key={id}>
                 <Table.RowHeaderCell>{title}</Table.RowHeaderCell>
-                <Table.Cell>{status}</Table.Cell>
+                <Table.Cell>
+                  <Badge color={issueStatusColor[status]}>{status}</Badge>
+                </Table.Cell>
                 <Table.Cell>
                   {new Date(createdAt).toLocaleDateString()}
                 </Table.Cell>
                 <Table.Cell>
-                  <Link href="/">
-                    <Button>View</Button>{" "}
-                  </Link>
-                  <Link href="/">
-                    <Button>Edit</Button>{" "}
-                  </Link>
+                  <Flex gap="4">
+                    <Button>
+                      <Link href="/">View</Link>
+                    </Button>
+                    <Button>
+                      <Link href="/">Edit</Link>
+                    </Button>
+                  </Flex>
                 </Table.Cell>
               </Table.Row>
             ))}
