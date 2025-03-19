@@ -5,7 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "../components/ErrorMessage";
-import { issueStatusColor } from "../lib/issueStatusUtils";
+import { issueStatus } from "../lib/issueStatusUtils";
 
 interface Issue {
   id: string;
@@ -62,7 +62,9 @@ const IssuesPage = () => {
               <Table.Row key={id}>
                 <Table.RowHeaderCell>{title}</Table.RowHeaderCell>
                 <Table.Cell>
-                  <Badge color={issueStatusColor[status]}>{status}</Badge>
+                  <Badge color={issueStatus[status].color}>
+                    {issueStatus[status].label}
+                  </Badge>
                 </Table.Cell>
                 <Table.Cell>
                   {new Date(createdAt).toLocaleDateString()}
