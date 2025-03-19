@@ -1,5 +1,4 @@
-import { Badge, Button, Flex, Table } from "@radix-ui/themes";
-import Link from "next/link";
+import { Table } from "@radix-ui/themes";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -28,16 +27,6 @@ const LoadingIssuesPage = () => {
             <Table.Cell>
               <Skeleton />
             </Table.Cell>
-            {/* <Table.Cell>
-              <Flex gap="4">
-                <Button>
-                  <Link href="/">View</Link>
-                </Button>
-                <Button>
-                  <Link href="/">Edit</Link>
-                </Button>
-              </Flex>
-            </Table.Cell> */}
           </Table.Row>
         ))}
       </Table.Body>

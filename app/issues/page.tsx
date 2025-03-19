@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "../components/ErrorMessage";
 import { issueStatus } from "../lib/issueStatusUtils";
-import LoadingIssuesPage from "./skeleton";
+import LoadingIssuesPage from "./loading";
 
 interface Issue {
   id: string;
@@ -55,7 +55,6 @@ const IssuesPage = () => {
               <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -69,16 +68,6 @@ const IssuesPage = () => {
                 </Table.Cell>
                 <Table.Cell>
                   {new Date(createdAt).toLocaleDateString()}
-                </Table.Cell>
-                <Table.Cell>
-                  <Flex gap="4">
-                    <Button>
-                      <Link href="/">View</Link>
-                    </Button>
-                    <Button>
-                      <Link href="/">Edit</Link>
-                    </Button>
-                  </Flex>
                 </Table.Cell>
               </Table.Row>
             ))}
