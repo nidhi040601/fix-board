@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "../components/ErrorMessage";
 import { issueStatus } from "../lib/issueStatusUtils";
+import LoadingIssuesPage from "./skeleton";
 
 interface Issue {
   id: string;
@@ -43,11 +44,11 @@ const IssuesPage = () => {
         </Button>
       </Flex>
       <ErrorMessage>{error}</ErrorMessage>
-      {loading && <Text as="p">Loading...</Text>}
+      {loading && <LoadingIssuesPage />}
       {!loading && !error && issues.length == 0 && (
         <Text as="p">No issues</Text>
       )}
-      {!loading && issues.length > 0 && (
+      {issues.length > 0 && (
         <Table.Root size="3" className="mt-4">
           <Table.Header>
             <Table.Row>
