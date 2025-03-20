@@ -60,7 +60,9 @@ const IssuesPage = () => {
           <Table.Body>
             {issues.map(({ id, title, status, createdAt }) => (
               <Table.Row key={id}>
-                <Table.RowHeaderCell>{title}</Table.RowHeaderCell>
+                <Table.RowHeaderCell>
+                  <Link href={`issues/${id}`}> {title}</Link>
+                </Table.RowHeaderCell>
                 <Table.Cell>
                   <Badge color={issueStatus[status].color}>
                     {issueStatus[status].label}
