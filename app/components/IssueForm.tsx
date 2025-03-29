@@ -74,4 +74,6 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   );
 };
 
+export const dynamic = "force-dynamic"; //To referesh data on every request
+
 export default IssueForm;
