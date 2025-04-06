@@ -1,4 +1,4 @@
-import IssueForm from "@/app/components/IssueForm";
+import IssueForm from "@/app/issues/_components/IssueForm";
 
 const NewIssuePage = () => {
   return <IssueForm />;

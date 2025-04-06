@@ -1,4 +1,4 @@
-import IssueForm from "@/app/components/IssueForm";
+import IssueForm from "@/app/issues/_components/IssueForm";
 import { Issue } from "@prisma/client";
 import axios from "axios";
 import React from "react";

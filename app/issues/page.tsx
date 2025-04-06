@@ -60,4 +60,6 @@ const IssuesPage = async () => {
   );
 };
 
+export const dynamic = "force-dynamic"; //To referesh data on every request
+
 export default IssuesPage;
