@@ -32,8 +32,6 @@ export async function PATCH(
     },
   });
 
-  console.log(updatedIssue);
-
   return NextResponse.json(updatedIssue);
 }
 
@@ -51,4 +49,25 @@ export async function GET(
   }
 
   return NextResponse.json(issue);
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = await params;
+
+  const issue = await prisma.issue.findUnique({
+    where: { id: id },
+  });
+
+  if (!issue) {
+    return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
+  }
+
+  await prisma.issue.delete({
+    where: { id: issue.id },
+  });
+
+  return NextResponse.json({});
 }

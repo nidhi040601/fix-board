@@ -1,15 +1,6 @@
 import { Issue } from "@prisma/client";
 import { issueStatus } from "@/app/lib/issueStatusUtils";
-import {
-  Badge,
-  Box,
-  Button,
-  Card,
-  Flex,
-  Grid,
-  Heading,
-  Text,
-} from "@radix-ui/themes";
+import { Badge, Card, Flex, Heading, Text } from "@radix-ui/themes";
 
 const IssueDetails = ({ issue }: { issue: Issue }) => {
   return (
