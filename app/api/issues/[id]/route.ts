@@ -69,5 +69,8 @@ export async function DELETE(
     where: { id: issue.id },
   });
 
-  return NextResponse.json({});
+  return NextResponse.json(
+    { message: "Issue deleted successfully." },
+    { status: 200 }
+  );
 }
