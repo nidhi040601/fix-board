@@ -2,8 +2,8 @@ import { Badge, Button, Flex, Heading, Table, Text } from "@radix-ui/themes";
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
-import ErrorMessage from "../components/ErrorMessage";
-import { issueStatus } from "../lib/issueStatusUtils";
+import ErrorMessage from "../../components/ErrorMessage";
+import { issueStatus } from "../../lib/issueStatusUtils";
 import { Issue } from "@prisma/client";
 
 const IssuesPage = async () => {
@@ -23,7 +23,7 @@ const IssuesPage = async () => {
       <Flex direction="row" justify="between">
         <Heading>Issues</Heading>
         <Button>
-          <Link href="issues/new">New Issue</Link>
+          <Link href="/issues/new">New Issue</Link>
         </Button>
       </Flex>
       <ErrorMessage>{errorMessage}</ErrorMessage>
@@ -41,7 +41,7 @@ const IssuesPage = async () => {
             {issues.map(({ id, title, status, createdAt }) => (
               <Table.Row key={id}>
                 <Table.RowHeaderCell>
-                  <Link href={`issues/${id}`}> {title}</Link>
+                  <Link href={`/issues/${id}`}> {title}</Link>
                 </Table.RowHeaderCell>
                 <Table.Cell>
                   <Badge color={issueStatus[status].color}>
