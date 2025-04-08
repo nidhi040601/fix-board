@@ -1,10 +1,20 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { IssueSchema } from "../../validationSchemas";
+import { getServerSession } from "next-auth";
+import authOptions from "@/app/auth/authOptions";
 
 const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session)
+    return NextResponse.json(
+      { message: "Unauthorized. Please log in to perform this action." },
+      { status: 401 }
+    );
+
   const body = await request.json();
 
   const validation = IssueSchema.safeParse(body); //safeParse doesn't throw errors if validation fails instead returns a object
