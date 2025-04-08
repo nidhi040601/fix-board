@@ -1,22 +1,13 @@
 import { Badge, Button, Flex, Heading, Table, Text } from "@radix-ui/themes";
-import axios from "axios";
 import Link from "next/link";
 import React from "react";
-import ErrorMessage from "../../components/ErrorMessage";
 import { issueStatus } from "../../lib/issueStatusUtils";
-import { Issue } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const IssuesPage = async () => {
-  let issues: Issue[] = [];
-  let errorMessage: string = "";
+  const prisma = new PrismaClient();
 
-  try {
-    const response = await axios.get("http://localhost:3000/api/issues/");
-    issues = await response.data;
-  } catch (error) {
-    errorMessage =
-      error instanceof Error ? error.message : "An unknown error occured";
-  }
+  const issues = await prisma.issue.findMany();
 
   return (
     <div className="px-4">
@@ -26,8 +17,7 @@ const IssuesPage = async () => {
           <Link href="/issues/new">New Issue</Link>
         </Button>
       </Flex>
-      <ErrorMessage>{errorMessage}</ErrorMessage>
-      {!errorMessage && issues.length == 0 && <Text as="p">No issues</Text>}
+      {issues.length == 0 && <Text as="p">No issues</Text>}
       {issues.length > 0 && (
         <Table.Root size="3" className="mt-4">
           <Table.Header>

@@ -1,6 +1,6 @@
 import IssueForm from "@/app/issues/_components/IssueForm";
-import { Issue } from "@prisma/client";
-import axios from "axios";
+import { PrismaClient } from "@prisma/client";
+import { notFound } from "next/navigation";
 import React from "react";
 
 interface Props {
@@ -8,13 +8,17 @@ interface Props {
 }
 
 const EditIssuePage = async ({ params }: Props) => {
+  const prisma = new PrismaClient();
+
   const { id } = await params;
 
-  const response = await axios.get("http://localhost:3000/api/issues/" + id);
+  const issue = await prisma.issue.findUnique({
+    where: { id: id },
+  });
 
-  const issueDetail: Issue = response.data;
+  if (!issue) notFound();
 
-  return <IssueForm issue={issueDetail} />;
+  return <IssueForm issue={issue} />;
 };
 
 export default EditIssuePage;
