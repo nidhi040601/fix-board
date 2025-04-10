@@ -14,28 +14,30 @@ datasource db {
 }
 
 model Issue {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId //@id (primary key), @map("_id") (map id to _id of mongodb), db.OnjectId (to ensure id is stores as ObjectId)
-  title       String
-  description String
-  status      String   @default("OPEN")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId //@id (primary key), @map("_id") (map id to _id of mongodb), db.OnjectId (to ensure id is stores as ObjectId)
+  title          String
+  description    String
+  status         String   @default("OPEN")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  assignedUserId String?  @db.ObjectId
+  assignedUser   User?    @relation(fields: [assignedUserId], references: [id])
 }
 
 model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.String
+  id                       String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId                   String  @db.ObjectId
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.String
   refresh_token_expires_in Int?
-  access_token      String? @db.String
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.String
-  session_state     String?
+  access_token             String? @db.String
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.String
+  session_state            String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -52,13 +54,14 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
+  assignedIssues Issue[]
 }
 
 model VerificationToken {
