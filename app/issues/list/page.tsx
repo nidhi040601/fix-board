@@ -3,19 +3,33 @@ import Link from "next/link";
 import React from "react";
 import { issueStatus } from "../../lib/issueStatusUtils";
 import { PrismaClient } from "@prisma/client";
+import IssueStatusFilter from "./IssueStatusFilter";
 
-const IssuesPage = async () => {
+interface Props {
+  searchParams: { status: string };
+}
+
+const IssuesPage = async ({ searchParams }: Props) => {
   const prisma = new PrismaClient();
 
-  const issues = await prisma.issue.findMany();
+  const { status } = await searchParams;
+
+  const issues = await prisma.issue.findMany({
+    where: { status },
+  });
+
+  console.log("issues", issues);
 
   return (
     <div className="px-4">
       <Flex direction="row" justify="between">
         <Heading>Issues</Heading>
-        <Button>
-          <Link href="/issues/new">New Issue</Link>
-        </Button>
+        <Flex gap="3" align="center">
+          <IssueStatusFilter />
+          <Button>
+            <Link href="/issues/new">New Issue</Link>
+          </Button>
+        </Flex>
       </Flex>
       {issues.length == 0 && <Text as="p">No issues</Text>}
       {issues.length > 0 && (
