@@ -2,23 +2,49 @@ import { Badge, Button, Flex, Heading, Table, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
 import { issueStatus } from "../../lib/issueStatusUtils";
-import { PrismaClient } from "@prisma/client";
+import { Issue, PrismaClient } from "@prisma/client";
 import IssueStatusFilter from "./IssueStatusFilter";
+import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 
 interface Props {
-  searchParams: { status: string };
+  searchParams: { status: keyof typeof issueStatus; orderBy: keyof Issue };
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
+  const columns: {
+    label: string;
+    value: keyof Issue;
+    className?: string;
+  }[] = [
+    { label: "Title", value: "title" },
+    {
+      label: "Status",
+      value: "status",
+      className: "hidden md:table-cell",
+    },
+    {
+      label: "Created",
+      value: "createdAt",
+      className: "hidden md:table-cell",
+    },
+  ];
+
   const prisma = new PrismaClient();
 
+  const params = await searchParams;
   const { status } = await searchParams;
+  console.log("seach params", params);
+
+  const orderBy = columns.map((column) => column.value).includes(params.orderBy)
+    ? { [params.orderBy]: "asc" }
+    : undefined;
+
+  console.log("order", orderBy);
 
   const issues = await prisma.issue.findMany({
     where: { status },
+    orderBy,
   });
-
-  console.log("issues", issues);
 
   return (
     <div className="px-4">
@@ -36,9 +62,20 @@ const IssuesPage = async ({ searchParams }: Props) => {
         <Table.Root size="3" className="mt-4">
           <Table.Header>
             <Table.Row>
-              <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell>
+              {columns.map((column) => (
+                <Table.ColumnHeaderCell key={column.value}>
+                  <Link
+                    href={{
+                      query: { ...params, orderBy: column.value },
+                    }}
+                  >
+                    {column.label}
+                  </Link>
+                  {column.value === params.orderBy && (
+                    <MdOutlineKeyboardArrowUp className="inline" />
+                  )}
+                </Table.ColumnHeaderCell>
+              ))}
             </Table.Row>
           </Table.Header>
           <Table.Body>
