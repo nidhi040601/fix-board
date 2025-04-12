@@ -27,7 +27,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: String }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red" disabled={isDeleting}>
+          <Button color="red" disabled={isDeleting} className="cursor-pointer">
             Delete Issue {isDeleting && <Spinner />}
           </Button>
         </AlertDialog.Trigger>
@@ -37,7 +37,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: String }) => {
             Are you sure you want to delete this issue? This action cannot be
             undone.
           </AlertDialog.Description>
-          <Flex mt="4" gap="3">
+          <Flex mt="4" gap="3" justify="end">
             <AlertDialog.Cancel>
               <Button variant="soft" color="gray">
                 Cancel

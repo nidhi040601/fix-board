@@ -65,7 +65,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           )}
         />
         <ErrorMessage>{formState.errors.description?.message}</ErrorMessage>
-        <Button disabled={isSubmitting}>
+        <Button disabled={isSubmitting} className="cursor-pointer">
           {issue ? "Update Issue" : "Submit New Issue"}
           {isSubmitting && <Spinner />}
         </Button>

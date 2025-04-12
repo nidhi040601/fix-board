@@ -19,19 +19,19 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="flex border-b mb-4 px-5 h-14 items-center">
-      <Flex justify="between" className="w-full">
-        <Flex gap="3">
+    <nav className="flex border-b mb-4 px-5 py-3 h-20 shadow-sm">
+      <Flex justify="between" className="w-full items-center">
+        <Flex gap="5">
           <Link href="/">
-            <IoBug />
+            <IoBug className="text-4xl" />
           </Link>
-          <ul className="flex space-x-6">
+          <ul className="flex space-x-6 text-xl items-center">
             {navLinks.map((link) => (
               <Link
                 className={classNames({
                   "text-zinc-900": link.href == currentPath,
                   "text-zinc-500": link.href != currentPath,
-                  "hover:text-zinc-800 transition-colors": true,
+                  "hover:text-zinc-800 transition-colors px-2 py-1": true,
                 })}
                 key={link.href}
                 href={link.href}
@@ -61,7 +61,7 @@ const AuthStatus = () => {
         <Avatar
           src={session!.user!.image!}
           fallback="?"
-          size="2"
+          size="4"
           radius="full"
           className="cursor-pointer"
         />

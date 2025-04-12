@@ -4,10 +4,12 @@ import Link from "next/link";
 
 const EditIssueButton = ({ issueId }: { issueId: String }) => {
   return (
-    <Button>
-      <IoPencil />
-      <Link href={`/issues/edit/${issueId}`}>Edit Issue</Link>
-    </Button>
+    <Link href={`/issues/edit/${issueId}`}>
+      <Button className="w-full cursor-pointer">
+        <IoPencil />
+        Edit Issue
+      </Button>
+    </Link>
   );
 };
 
