@@ -1,6 +1,5 @@
-import { Issue, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
-import axios from "axios";
 import IssueDetails from "./IssueDetails";
 import EditIssueButton from "./EditIssueButton";
 import DeleteIssueButton from "./DeleteIssueButton";

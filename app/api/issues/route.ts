@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json(newIssue, { status: 201 });
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const issues = await prisma.issue.findMany({
     orderBy: { createdAt: "desc" },
   });

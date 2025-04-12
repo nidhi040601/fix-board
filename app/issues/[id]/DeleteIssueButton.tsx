@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Spinner } from "@radix-ui/themes";
 
-const DeleteIssueButton = ({ issueId }: { issueId: String }) => {
+const DeleteIssueButton = ({ issueId }: { issueId: string }) => {
   const router = useRouter();
   const [error, setError] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -20,6 +20,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: String }) => {
     } catch (error) {
       setIsDeleting(false);
       setError(true);
+      console.log(error);
     }
   };
 

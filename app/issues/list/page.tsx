@@ -1,4 +1,4 @@
-import { Badge, Button, Flex, Heading, Table, Text } from "@radix-ui/themes";
+import { Button, Flex, Heading } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
 import { issueStatus } from "../../lib/issueStatusUtils";
